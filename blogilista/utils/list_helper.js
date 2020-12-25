@@ -53,7 +53,7 @@ const mostLikes = (blogs) => {
   }, {})
 
   const likesByAuthor = _.map(likesTally, (value, key) => {
-    return { author: key, likes: value}
+    return { author: key, likes: value }
   })
 
   return _.maxBy(likesByAuthor, 'likes')
