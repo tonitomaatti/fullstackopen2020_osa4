@@ -30,21 +30,39 @@ const mostBlogs = (blogs) => {
     return false
   }
 
-  const tally = _.reduce(blogs, (total, next) => {
+  const blogTally = _.reduce(blogs, (total, next) => {
     total[next.author] = (total[next.author] || 0) + 1
     return total
   }, {})
 
-  const blogsByAuthor = _.map(tally, (value, key) => {
+  const blogsByAuthor = _.map(blogTally, (value, key) => {
     return { author: key, blogs: value }
   })
 
   return _.maxBy(blogsByAuthor, 'blogs')
 }
 
+const mostLikes = (blogs) => {
+  if (blogs.length === 0) {
+    return false
+  }
+
+  const likesTally = _.reduce(blogs, (total, next) => {
+    total[next.author] = (total[next.author] || 0) + next.likes
+    return total
+  }, {})
+
+  const likesByAuthor = _.map(likesTally, (value, key) => {
+    return { author: key, likes: value}
+  })
+
+  return _.maxBy(likesByAuthor, 'likes')
+}
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }
