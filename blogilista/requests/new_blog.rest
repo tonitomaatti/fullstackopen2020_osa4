@@ -2,7 +2,6 @@ POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-  "title":"tekniikkablogi",
   "author":"Matti Meikäläinen",
   "url":"www.superparasblogi.com",
   "likes":43
