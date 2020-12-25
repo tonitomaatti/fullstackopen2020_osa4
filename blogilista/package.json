@@ -1,7 +1,7 @@
 {
   "name": "blogilista",
   "version": "1.0.0",
-  "description": "",
+  "description": "Tallennetaan tietoja blogeista",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
