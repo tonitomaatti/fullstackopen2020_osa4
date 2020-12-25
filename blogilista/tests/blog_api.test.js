@@ -140,4 +140,3 @@ test('A blog can be updated', async () => {
 afterAll(() => {
   mongoose.connection.close()
 })
-
