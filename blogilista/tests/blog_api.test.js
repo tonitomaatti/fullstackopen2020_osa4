@@ -6,10 +6,12 @@ const Blog = require('../models/blog')
 const exampleBlogs = require('./example_blogs')
 
 const api = supertest(app)
+const initialBlogs = exampleBlogs.removeMongoFields(exampleBlogs.listWithManyBlogs)
+
 
 beforeEach(async () => {
   await Blog.deleteMany({})
-  await Blog.insertMany(exampleBlogs.removeMongoFields(exampleBlogs.listWithManyBlogs))
+  await Blog.insertMany(initialBlogs)
 })
 
 test('blogs are returned as json', async () => {
@@ -19,10 +21,10 @@ test('blogs are returned as json', async () => {
     .expect('Content-Type', /application\/json/)
 })
 
-test('there are six notes', async () => {
+test('all blogs are returned', async () => {
   const response = await api.get('/api/blogs')
 
-  expect(response.body).toHaveLength(6)
+  expect(response.body).toHaveLength(initialBlogs.length)
 })
 
 
