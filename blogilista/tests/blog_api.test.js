@@ -7,8 +7,8 @@ const Blog = require('../models/blog')
 const exampleBlogs = require('./example_blogs')
 
 const api = supertest(app)
-const initialBlogs = exampleBlogs.removeMongoFields(exampleBlogs.listWithManyBlogs)
-const singleBlogList = exampleBlogs.removeMongoFields(exampleBlogs.listWithOneBlog)
+const initialBlogs = exampleBlogs.listWithManyBlogs
+const singleBlogList = exampleBlogs.listWithOneBlog
 
 
 
