@@ -53,7 +53,7 @@ test('a valid blog can be added', async () => {
 })
 
 test('Non defined likes-field initializes to zero', async () => {
-  const newBlog = exampleBlogs.noLikeFieldBlog
+  const newBlog = exampleBlogs.noLikesFieldBlog
 
   const resultBlog = await api
     .post('/api/blogs')
@@ -63,6 +63,46 @@ test('Non defined likes-field initializes to zero', async () => {
 
   expect(resultBlog.body.likes).toEqual(0)
 })
+
+test('Blog without title is not added', async () => {
+  const newBlog = exampleBlogs.noTitleBlog
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+
+  const blogsAtEnd = await helper.blogsInDb()
+
+  expect(blogsAtEnd).toHaveLength(exampleBlogs.listWithManyBlogs.length)
+})
+
+test('Blog without url is not added', async () => {
+  const newBlog = exampleBlogs.noUrlBlog
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+
+  const blogsAtEnd = await helper.blogsInDb()
+
+  expect(blogsAtEnd).toHaveLength(exampleBlogs.listWithManyBlogs.length)
+})
+
+test('Blog without title and url is not added', async () => {
+  const newBlog = exampleBlogs.noTitleOrUrlBlog
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+
+  const blogsAtEnd = await helper.blogsInDb()
+
+  expect(blogsAtEnd).toHaveLength(exampleBlogs.listWithManyBlogs.length)
+})
+
 
 
 afterAll(() => {

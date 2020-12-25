@@ -48,15 +48,35 @@ const listWithManyBlogs = [
   }
 ]
 
-const noLikeFieldBlog = {
+const noLikesFieldBlog = {
   title: 'This blog has no like field',
   author: 'Indiana Jones',
   url: 'http://www.google.com'
+}
+
+const noTitleBlog = {
+  author: 'Matti Meikäläinen',
+  url: 'http://www.notitle.com',
+  likes: 5
+}
+
+const noUrlBlog = {
+  title: 'This blog has no url field',
+  author: 'Matti Meikäläinen',
+  likes: 6
+}
+
+const noTitleOrUrlBlog = {
+  author: 'John Smith',
+  likes: 3
 }
 
 module.exports = {
   listWithNoBlogs,
   listWithOneBlog,
   listWithManyBlogs,
-  noLikeFieldBlog
+  noLikesFieldBlog,
+  noTitleBlog,
+  noUrlBlog,
+  noTitleOrUrlBlog
 }
