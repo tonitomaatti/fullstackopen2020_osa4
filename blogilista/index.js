@@ -13,5 +13,5 @@ app.use(express.json())
 app.use('/api/blogs', blogsRouter)
 
 app.listen(config.PORT, () => {
-  logger.info(`Server running on port ${PORT}`)
+  logger.info(`Server running on port ${config.PORT}`)
 })
