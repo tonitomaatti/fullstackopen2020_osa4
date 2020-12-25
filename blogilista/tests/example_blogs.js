@@ -48,8 +48,15 @@ const listWithManyBlogs = [
   }
 ]
 
+const noLikeFieldBlog = {
+  title: 'This blog has no like field',
+  author: 'Indiana Jones',
+  url: 'http://www.google.com'
+}
+
 module.exports = {
   listWithNoBlogs,
   listWithOneBlog,
-  listWithManyBlogs
+  listWithManyBlogs,
+  noLikeFieldBlog
 }

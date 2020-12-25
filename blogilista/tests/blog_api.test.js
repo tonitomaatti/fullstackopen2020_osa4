@@ -52,6 +52,18 @@ test('a valid blog can be added', async () => {
   )
 })
 
+test('Non defined likes-field initializes to zero', async () => {
+  const newBlog = exampleBlogs.noLikeFieldBlog
+
+  const resultBlog = await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  expect(resultBlog.body.likes).toEqual(0)
+})
+
 
 afterAll(() => {
   mongoose.connection.close()
