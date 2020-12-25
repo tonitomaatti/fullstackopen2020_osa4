@@ -46,8 +46,8 @@ test('a valid blog can be added', async () => {
   const blogsAtEnd = await helper.blogsInDb()
   expect(blogsAtEnd).toHaveLength(exampleBlogs.listWithManyBlogs.length + 1)
 
-  const contents = blogsAtEnd.map(blog => blog.title)
-  expect(contents).toContain(
+  const titles = blogsAtEnd.map(blog => blog.title)
+  expect(titles).toContain(
     'Go To Statement Considered Harmful'
   )
 })
@@ -103,8 +103,26 @@ test('Blog without title and url is not added', async () => {
   expect(blogsAtEnd).toHaveLength(exampleBlogs.listWithManyBlogs.length)
 })
 
+test('A blog can be deleted', async () => {
+  const blogsAtStart = await helper.blogsInDb()
+  const blogToDelete = blogsAtStart[0]
 
+  await api
+    .delete(`/api/blogs/${blogToDelete.id}`)
+    .expect(204)
+
+  const blogsAtEnd = await helper.blogsInDb()
+
+  expect(blogsAtEnd).toHaveLength(
+    exampleBlogs.listWithManyBlogs.length -1
+  )
+
+  const titles = blogsAtEnd.map(blog => blog.title)
+
+  expect(titles).not.toContain(blogToDelete.title)
+})
 
 afterAll(() => {
   mongoose.connection.close()
 })
+
