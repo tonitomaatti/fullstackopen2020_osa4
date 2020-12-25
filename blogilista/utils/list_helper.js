@@ -1,3 +1,5 @@
+const _ = require('lodash')
+
 const dummy = (blogs) => { //eslint-disable-line
   return 1
 }
@@ -23,8 +25,26 @@ const favoriteBlog = (blogs) => {
   }
 }
 
+const mostBlogs = (blogs) => {
+  if (blogs.length === 0) {
+    return false
+  }
+
+  const tally = _.reduce(blogs, (total, next) => {
+    total[next.author] = (total[next.author] || 0) + 1
+    return total
+  }, {})
+
+  const blogsByAuthor = _.map(tally, (value, key) => {
+    return { author: key, blogs: value }
+  })
+
+  return _.maxBy(blogsByAuthor, 'blogs')
+}
+
 module.exports = {
   dummy,
   totalLikes,
-  favoriteBlog
+  favoriteBlog,
+  mostBlogs
 }

@@ -19,7 +19,7 @@ describe('favorite blog', () => {
   })
 
   test('of a bigger list is right', () => {
-    const result = favoriteBlog(exampleBlogs.listWIthManyBlogs)
+    const result = favoriteBlog(exampleBlogs.listWithManyBlogs)
     expect(result).toEqual(
       {
         title: 'Canonical string reduction',
