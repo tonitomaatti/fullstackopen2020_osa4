@@ -10,9 +10,6 @@ const api = supertest(app)
 const initialBlogs = exampleBlogs.listWithManyBlogs
 const singleBlogList = exampleBlogs.listWithOneBlog
 
-
-
-
 beforeEach(async () => {
   await Blog.deleteMany({})
   await Blog.insertMany(initialBlogs)
