@@ -7,12 +7,10 @@ const Blog = require('../models/blog')
 const exampleBlogs = require('./example_blogs')
 
 const api = supertest(app)
-const initialBlogs = exampleBlogs.listWithManyBlogs
-const singleBlogList = exampleBlogs.listWithOneBlog
 
 beforeEach(async () => {
   await Blog.deleteMany({})
-  await Blog.insertMany(initialBlogs)
+  await Blog.insertMany(exampleBlogs.listWithManyBlogs)
 })
 
 test('blogs are returned as json', async () => {
@@ -25,7 +23,7 @@ test('blogs are returned as json', async () => {
 test('all blogs are returned', async () => {
   const response = await api.get('/api/blogs')
 
-  expect(response.body).toHaveLength(initialBlogs.length)
+  expect(response.body).toHaveLength(exampleBlogs.listWithManyBlogs.length)
 })
 
 test('blogs have id field named as id', async () => {
@@ -37,7 +35,7 @@ test('blogs have id field named as id', async () => {
 })
 
 test('a valid blog can be added', async () => {
-  const newBlog = singleBlogList[0]
+  const newBlog = exampleBlogs.listWithOneBlog[0]
 
   await api
     .post('/api/blogs')
@@ -46,7 +44,7 @@ test('a valid blog can be added', async () => {
     .expect('Content-Type', /application\/json/)
 
   const blogsAtEnd = await helper.blogsInDb()
-  expect(blogsAtEnd).toHaveLength(initialBlogs.length + 1)
+  expect(blogsAtEnd).toHaveLength(exampleBlogs.listWithManyBlogs.length + 1)
 
   const contents = blogsAtEnd.map(blog => blog.title)
   expect(contents).toContain(
