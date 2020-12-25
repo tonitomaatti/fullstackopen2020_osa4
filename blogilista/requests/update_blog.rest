@@ -1,0 +1,9 @@
+PUT http://localhost:3001/api/blogs/5fe58b5d28a4a915ac051a9f
+Content-Type: application/json
+
+{
+  "author": "Matti Meikäläinen",
+  "title": "paivitys blogiin",
+  "url": "www.superparasblogi.com",
+  "likes": 43
+}
