@@ -1,3 +1,5 @@
+const _ = require('lodash')
+
 const listWithNoBlogs = []
 
 const listWithOneBlog = [
@@ -62,8 +64,17 @@ const listWithManyBlogs = [
   }
 ]
 
+const removeMongoFields = (blogs) => {
+  const cleanedBlogs = _.map(blogs, blog => {
+    return _.omit(blog, '_id', '__v')
+  })
+
+  return cleanedBlogs
+}
+
 module.exports = {
   listWithNoBlogs,
   listWithOneBlog,
-  listWithManyBlogs
+  listWithManyBlogs,
+  removeMongoFields
 }
