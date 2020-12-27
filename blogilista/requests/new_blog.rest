@@ -3,6 +3,8 @@ Content-Type: application/json
 
 {
   "author":"Matti Meikäläinen",
+  "title": "blog title",
   "url":"www.superparasblogi.com",
-  "likes":43
+  "likes":43,
+  "userId":"5fe7d66460ca673308cedf96"
 }
