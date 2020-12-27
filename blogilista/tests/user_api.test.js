@@ -38,6 +38,19 @@ describe('when there is initially one user at db', () => {
     const usernames = usersAtEnd.map(u => u.username)
     expect(usernames).toContain(newUser.username)
   })
+
+  test('users are returned as json', async () => {
+    await api
+      .get('/api/users')
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+  })
+
+  test('all users are returned', async () => {
+    const response = await api.get('/api/users')
+
+    expect(response.body).toHaveLength(1)
+  })
 })
 
 afterAll(() => {
