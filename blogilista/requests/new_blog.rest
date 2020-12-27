@@ -1,6 +1,6 @@
 POST http://localhost:3001/api/blogs
-Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBla2thIiwiaWQiOiI1ZmU3ZmE3YjNkNjM2ZjI1YmNlYzBiODUiLCJpYXQiOjE2MDkwMzkwMDB9.JxUsS-ITWen_3P1H2kXZ2MGLJRdeFZDTjN7FIzBDBvI
+Content-Type: application/json
 
 {
   "author":"Matti Meikäläinen",
