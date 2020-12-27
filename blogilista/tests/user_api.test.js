@@ -4,6 +4,7 @@ const app = require('../app')
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const helper = require('./test_helper')
+const jwt = require('jsonwebtoken')
 
 const api = supertest(app)
 
@@ -15,6 +16,29 @@ describe('when there is initially one user at db', () => {
     const user = new User({ username: 'root', name: 'root', passwordHash })
 
     await user.save()
+  })
+
+  test('login succeeds with correct user and token returned', async () => {
+
+    const response = await api
+      .post('/api/login')
+      .send({ username: 'root', password: 'sekret' })
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    expect(response.body.username).toEqual('root')
+    expect(response.body.name).toEqual('root')
+
+    const user = await User.findOne({ username: 'root' })
+
+    const userForToken = {
+      username: user.username,
+      id: user._id,
+    }
+
+    const localToken = jwt.sign(userForToken, process.env.SECRET)
+
+    expect(response.body.token).toEqual(localToken)
   })
 
   test('creation succeeds with a fresh username', async () => {

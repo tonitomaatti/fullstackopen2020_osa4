@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const helper = require('./test_helper')
 const app = require('../app')
+const bcrypt = require('bcrypt')
+const User = require('../models/user')
 
 const Blog = require('../models/blog')
 const exampleBlogs = require('./example_blogs')
@@ -11,6 +13,11 @@ const api = supertest(app)
 beforeEach(async () => {
   await Blog.deleteMany({})
   await Blog.insertMany(exampleBlogs.listWithManyBlogs)
+  await User.deleteMany({})
+
+  const passwordHash = await bcrypt.hash('sekret', 10)
+  const user = new User({ username: 'root', name: 'root', passwordHash })
+  await user.save()
 })
 
 test('blogs are returned as json', async () => {
@@ -37,8 +44,15 @@ test('blogs have id field named as id', async () => {
 test('a valid blog can be added', async () => {
   const newBlog = exampleBlogs.listWithOneBlog[0]
 
+  const user = await api
+    .post('/api/login')
+    .send({ username: 'root', password: 'sekret' })
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
   await api
     .post('/api/blogs')
+    .set('Authorization', user.body.token)
     .send(newBlog)
     .expect(200)
     .expect('Content-Type', /application\/json/)
