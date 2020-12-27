@@ -1,10 +1,10 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBla2thIiwiaWQiOiI1ZmU3ZmE3YjNkNjM2ZjI1YmNlYzBiODUiLCJpYXQiOjE2MDkwMzkwMDB9.JxUsS-ITWen_3P1H2kXZ2MGLJRdeFZDTjN7FIzBDBvI
 
 {
   "author":"Matti Meikäläinen",
   "title": "blog title",
   "url":"www.superparasblogi.com",
-  "likes":43,
-  "userId":"5fe7d66460ca673308cedf96"
+  "likes":43
 }
